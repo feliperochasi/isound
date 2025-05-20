@@ -42,7 +42,7 @@ public class Main {
     private void readOption(Integer selectOption) {
         switch (selectOption) {
             case 1:
-                createNewArtisct();
+                createNewArtistic();
                 break;
             case 2:
                 createNewMusic();
@@ -54,13 +54,13 @@ public class Main {
                 listAllMusics();
                 break;
             case 5:
-                searchMusicFromArtisct();
+                searchMusicFromArtistic();
                 break;
             case 6:
                 searchMusicFromAlbum();
                 break;
             case 7:
-                queryArtisctIA();
+                queryArtisticIA();
                 break;
             case 8:
                 queryMusicIA();
@@ -76,7 +76,7 @@ public class Main {
 
     }
 
-    private void createNewArtisct() {
+    private void createNewArtistic() {
 
     }
 
@@ -92,7 +92,7 @@ public class Main {
 
     }
 
-    private void searchMusicFromArtisct() {
+    private void searchMusicFromArtistic() {
 
     }
 
@@ -100,7 +100,7 @@ public class Main {
 
     }
 
-    private void queryArtisctIA() {
+    private void queryArtisticIA() {
 
     }
 
