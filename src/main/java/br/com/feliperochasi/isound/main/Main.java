@@ -1,11 +1,17 @@
 package br.com.feliperochasi.isound.main;
 
+import br.com.feliperochasi.isound.model.Artistic;
+import br.com.feliperochasi.isound.repository.ArtisticRepository;
+
 import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
+    private final ArtisticRepository artisticRepository;
 
-
+    public Main(ArtisticRepository artisticRepository) {
+        this.artisticRepository = artisticRepository;
+    }
     public void initIsound() {
         System.out.println("""
                 
@@ -18,6 +24,7 @@ public class Main {
         while (option != 9) {
             showMenu();
             option = scanner.nextInt();
+            clearLine();
             readOption(option);
         }
     }
@@ -77,7 +84,23 @@ public class Main {
     }
 
     private void createNewArtistic() {
-
+        var leave = 0;
+        while (leave == 0) {
+            System.out.println("***************** Cadastro de um novo artista *****************");
+            System.out.println("Nome do artista:");
+            var name = scanner.nextLine();
+            System.out.println("Tipo de artista:");
+            var type = scanner.nextLine();
+            System.out.println("Ano de inicio da carreira:");
+            var date = scanner.nextLine();
+            var artistic = new Artistic(name, type, date);
+            artisticRepository.save(artistic);
+            System.out.println("Deseja cadastrar mais um artista? (n/s)");
+            var s = scanner.nextLine();
+            if (!s.equalsIgnoreCase("s")) {
+                leave = 1;
+            }
+        }
     }
 
     private void createNewMusic() {
@@ -105,6 +128,10 @@ public class Main {
     }
 
     private void queryMusicIA() {
+    }
+
+    private void clearLine() {
+        scanner.nextLine();
     }
 
 }

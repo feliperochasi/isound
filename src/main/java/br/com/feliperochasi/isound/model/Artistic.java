@@ -24,10 +24,10 @@ public class Artistic {
 
     public Artistic() {}
 
-    public Artistic(String name, TypeArtistic typeArtistic, LocalDate releasedDate) {
+    public Artistic(String name, String typeArtistic, String releasedDate) {
         this.name = name;
-        this.typeArtistic = typeArtistic;
-        this.releasedDate = releasedDate;
+        this.typeArtistic = TypeArtistic.fromString(typeArtistic);
+        this.releasedDate = LocalDate.parse(releasedDate);
     }
 
     public Long getId() {
