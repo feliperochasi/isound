@@ -1,15 +1,15 @@
 package br.com.feliperochasi.isound.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "musics")
 public class Music {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(unique = true)
     private String title;
     private Double duration;
@@ -27,6 +27,14 @@ public class Music {
         this.releasedDate = releasedDate;
         this.album = album;
         this.artistic = artistic;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -72,7 +80,8 @@ public class Music {
     @Override
     public String toString() {
         return "Music{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", duration=" + duration +
                 ", releasedDate=" + releasedDate +
                 ", album=" + album +

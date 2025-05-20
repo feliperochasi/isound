@@ -3,20 +3,24 @@ package br.com.feliperochasi.isound.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "artistics")
 public class Artistic {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(unique = true)
     private String name;
     private TypeArtistic typeArtistic;
     private LocalDate releasedDate;
 
     @OneToMany(mappedBy = "artistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Music musics;
+    private List<Music> musics;
 
     @OneToMany(mappedBy = "artistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Album album;
+    private List<Album> album;
 
     public Artistic() {}
 
@@ -24,6 +28,14 @@ public class Artistic {
         this.name = name;
         this.typeArtistic = typeArtistic;
         this.releasedDate = releasedDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -50,12 +62,31 @@ public class Artistic {
         this.releasedDate = releasedDate;
     }
 
+    public List<Music> getMusics() {
+        return musics;
+    }
+
+    public void setMusics(List<Music> musics) {
+        this.musics = musics;
+    }
+
+    public List<Album> getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(List<Album> album) {
+        this.album = album;
+    }
+
     @Override
     public String toString() {
         return "Artistic{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", typeArtistic=" + typeArtistic +
                 ", releasedDate=" + releasedDate +
+                ", musics=" + musics +
+                ", album=" + album +
                 '}';
     }
 }
