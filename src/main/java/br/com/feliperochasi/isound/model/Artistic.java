@@ -1,8 +1,6 @@
 package br.com.feliperochasi.isound.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -13,6 +11,12 @@ public class Artistic {
     private String name;
     private TypeArtistic typeArtistic;
     private LocalDate releasedDate;
+
+    @OneToMany(mappedBy = "artistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Music musics;
+
+    @OneToMany(mappedBy = "artistic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Album album;
 
     public Artistic() {}
 

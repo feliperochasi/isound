@@ -2,6 +2,7 @@ package br.com.feliperochasi.isound.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
@@ -13,7 +14,9 @@ public class Music {
     private String title;
     private Double duration;
     private LocalDate releasedDate;
+    @ManyToOne
     private Album album;
+    @ManyToOne
     private Artistic artistic;
 
     public Music() {}

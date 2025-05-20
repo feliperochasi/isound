@@ -1,15 +1,16 @@
 package br.com.feliperochasi.isound.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "albums")
 public class Album {
     @Column(unique = true)
     private String title;
+    @ManyToOne
     private Artistic artistic;
+
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Music music;
 
     public Album() {}
