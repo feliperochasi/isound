@@ -179,6 +179,7 @@ public class Main {
     }
 
     private void searchMusicFromAlbum() {
+        showTitleMessage("Lista de musicas por album");
         System.out.println("Digite o album que deseja buscar");
         var albumSearch = scanner.nextLine();
         var album = albumRepository.findByTitleContainingIgnoreCase(albumSearch);
