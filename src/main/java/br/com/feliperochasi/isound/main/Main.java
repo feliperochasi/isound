@@ -185,44 +185,33 @@ public class Main {
 
     private void searchMusicFromAlbum() {
         showTitleMessage("Lista de musicas por album");
-        System.out.println("Digite o album que deseja buscar");
-        var albumSearch = scanner.nextLine();
-        var album = albumRepository.findByTitleContainingIgnoreCase(albumSearch);
-        album.ifPresent(a -> {
-            System.out.println("Album: " + a.getTitle());
-            a.getMusic().forEach(m -> {
-                System.out.println("Musica: " + m.getTitle());
-            });
+        var album = getAlbumFromDatabase();
+        System.out.println("Album: " + album.getTitle());
+        album.getMusic().forEach(m -> {
+            System.out.println("Musica: " + m.getTitle());
         });
     }
 
     private void queryArtisticIA() {
         showTitleMessage("Maiores informacoes sobre artista");
         var artistic = getArtisticFromDatabase();
-        var text = OpenAI.getResultAI(artistic.getName(), "artistic");
-        System.out.println(text);
+        showResultIA(artistic.getName(), "artistic");
     }
 
     private void queryMusicIA() {
         showTitleMessage("Maiores informacoes sobre uma musica");
-        System.out.println("Digite o titulo da musica");
-        var titleMusic = scanner.nextLine();
-        Optional<Music> music = musicRepository.findByTitleContainingIgnoreCase(titleMusic);
-        music.ifPresent(m -> {
-            var text = OpenAI.getResultAI(m.getTitle(), "music");
-            System.out.println(text);
-        });
+        var music = getMusicFromDatabase();
+        showResultIA(music.getTitle(), "music");
     }
 
     private void queryAlbumIA() {
         showTitleMessage("Maiores informacoes sobre um album");
-        System.out.println("Digite o titulo do album");
-        var titleAlbum = scanner.nextLine();
-        Optional<Album> album = albumRepository.findByTitleContainingIgnoreCase(titleAlbum);
-        album.ifPresent(a -> {
-            var text = OpenAI.getResultAI(a.getTitle(), "album");
-            System.out.println(text);
-        });
+        var album = getAlbumFromDatabase();
+        showResultIA(album.getTitle(), "album");
+    }
+
+    private void showResultIA(String title, String object) {
+        System.out.println(OpenAI.getResultAI(title, object));
     }
 
     private void clearLine() {
@@ -234,13 +223,33 @@ public class Main {
     }
 
     private Artistic getArtisticFromDatabase() {
-        System.out.println("Pesquie pelo artista");
+        System.out.println("Pesquise pelo artista");
         var searchArtistic = scanner.nextLine();
         Optional<Artistic> resultArtistic = artisticRepository.findByNameContainingIgnoreCase(searchArtistic);
         if (resultArtistic.isPresent()) {
             return resultArtistic.get();
         }
-        throw new IllegalArgumentException("Nenhum tipo de artista encontrado: " + searchArtistic);
+        throw new IllegalArgumentException("Nenhum artista encontrado: " + searchArtistic);
+    }
+
+    private Album getAlbumFromDatabase() {
+        System.out.println("Pesquise pelo album");
+        var searchAlbum = scanner.nextLine();
+        Optional<Album> resultAlbum = albumRepository.findByTitleContainingIgnoreCase(searchAlbum);
+        if (resultAlbum.isPresent()) {
+            return resultAlbum.get();
+        }
+        throw new IllegalArgumentException("Nenhum album encontrado: " + searchAlbum);
+    }
+
+    private Music getMusicFromDatabase() {
+        System.out.println("Pesquise pela musica");
+        var searchMusic = scanner.nextLine();
+        Optional<Music> resultMusic = musicRepository.findByTitleContainingIgnoreCase(searchMusic);
+        if(resultMusic.isPresent()) {
+            return resultMusic.get();
+        }
+        throw new IllegalArgumentException("Nenhuma musica encontrada: " + searchMusic);
     }
 
     private void repeat() {
