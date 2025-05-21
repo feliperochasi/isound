@@ -13,6 +13,7 @@ public class Artistic {
     private Long id;
     @Column(unique = true)
     private String name;
+    @Enumerated(EnumType.STRING)
     private TypeArtistic typeArtistic;
     private LocalDate releasedDate;
 
