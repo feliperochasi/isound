@@ -54,8 +54,9 @@ public class Main {
                 6 - Buscar musica por album
                 7 - Saber mais sobre artista
                 8 - Saber mais sobre musica
+                9 - Saber mais sobre um album
                 
-                9 - Sair
+                0 - Sair
                 """);
     }
 
@@ -86,6 +87,9 @@ public class Main {
                 queryMusicIA();
                 break;
             case 9:
+                queryAlbumIA();
+                break;
+            case 0:
                 System.out.println("Encerrando....");
                 break;
             default:
@@ -206,6 +210,17 @@ public class Main {
         Optional<Music> music = musicRepository.findByTitleContainingIgnoreCase(titleMusic);
         music.ifPresent(m -> {
             var text = OpenAI.getResultAI(m.getTitle(), "music");
+            System.out.println(text);
+        });
+    }
+
+    private void queryAlbumIA() {
+        showTitleMessage("Maiores informacoes sobre um album");
+        System.out.println("Digite o titulo do album");
+        var titleAlbum = scanner.nextLine();
+        Optional<Album> album = albumRepository.findByTitleContainingIgnoreCase(titleAlbum);
+        album.ifPresent(a -> {
+            var text = OpenAI.getResultAI(a.getTitle(), "album");
             System.out.println(text);
         });
     }
