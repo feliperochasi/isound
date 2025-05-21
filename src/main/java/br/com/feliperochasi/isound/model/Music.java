@@ -21,10 +21,10 @@ public class Music {
 
     public Music() {}
 
-    public Music(String title, Double duration, LocalDate releasedDate, Album album, Artistic artistic) {
+    public Music(String title, Double duration, String releasedDate, Album album, Artistic artistic) {
         this.title = title;
         this.duration = duration;
-        this.releasedDate = releasedDate;
+        this.releasedDate = LocalDate.parse(releasedDate);
         this.album = album;
         this.artistic = artistic;
     }

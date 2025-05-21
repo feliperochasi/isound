@@ -2,21 +2,28 @@ package br.com.feliperochasi.isound.main;
 
 import br.com.feliperochasi.isound.model.Album;
 import br.com.feliperochasi.isound.model.Artistic;
+import br.com.feliperochasi.isound.model.Music;
 import br.com.feliperochasi.isound.repository.AlbumRepository;
 import br.com.feliperochasi.isound.repository.ArtisticRepository;
+import br.com.feliperochasi.isound.repository.MusicRepository;
 
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private final ArtisticRepository artisticRepository;
     private final AlbumRepository albumRepository;
+    private final MusicRepository musicRepository;
     private Integer leave = 0;
 
-    public Main(ArtisticRepository artisticRepository, AlbumRepository albumRepository) {
+    public Main(ArtisticRepository artisticRepository,
+                AlbumRepository albumRepository,
+                MusicRepository musicRepository) {
         this.artisticRepository = artisticRepository;
         this.albumRepository = albumRepository;
+        this.musicRepository = musicRepository;
     }
     public void initIsound() {
         System.out.println("""
@@ -106,11 +113,39 @@ public class Main {
     }
 
     private void createNewMusic() {
+        leave = 0;
+        while (leave == 0) {
+            showMessageRegister("Cadastro de uma nova musica");
+            var artistic = getArtisticFromDatabase();
+            System.out.println("Para qual album deseja cadastrar essa musica?");
+            var artisticAlbums = artistic.getAlbum();
+            artisticAlbums.forEach(a -> {
+                System.out.println("Nome do album: " + a.getTitle());
+            });
+            var searchAlbum = scanner.nextLine();
+            var album = artistic.getAlbum().stream().filter(a -> a.getTitle().toLowerCase().contains(searchAlbum.toLowerCase())).findFirst();
+            if (album.isPresent()) {
+                var a = album.get();
+                System.out.println("Digite o nome da musica:");
+                var title = scanner.nextLine();
+                System.out.println("Digite a duracao da musica:");
+                var duration = scanner.nextDouble();
+                scanner.nextLine();
+                System.out.println("Digite a data de lancamento:");
+                var date = scanner.nextLine();
+                var music = new Music(title, duration, date, a, artistic);
+                musicRepository.save(music);
+            } else {
+                System.out.println("Album nao encontrado, tente novamente!");
+            }
+            repeat();
+        }
     }
 
     private void createNewAlbum() {
         leave = 0;
         while (leave == 0) {
+            showMessageRegister("Cadastro de um novo album");
             var artistic = getArtisticFromDatabase();
             System.out.println("Digite o titulo do album:");
             var title = scanner.nextLine();

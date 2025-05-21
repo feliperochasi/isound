@@ -68,6 +68,7 @@ public class Artistic {
     }
 
     public void setMusics(List<Music> musics) {
+        musics.forEach(m -> m.setArtistic(this));
         this.musics = musics;
     }
 
@@ -76,6 +77,7 @@ public class Artistic {
     }
 
     public void setAlbum(List<Album> album) {
+        album.forEach(a -> a.setArtistic(this));
         this.album = album;
     }
 

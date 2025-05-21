@@ -18,7 +18,7 @@ public class Album {
     @ManyToOne
     private Artistic artistic;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Music> music;
 
     public Album() {}
@@ -66,6 +66,7 @@ public class Album {
     }
 
     public void setMusic(List<Music> music) {
+        music.forEach(m -> m.setAlbum(this));
         this.music = music;
     }
 
@@ -75,7 +76,6 @@ public class Album {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", releasedDate=" + releasedDate +
-                ", artistic=" + artistic +
                 ", music=" + music +
                 '}';
     }
