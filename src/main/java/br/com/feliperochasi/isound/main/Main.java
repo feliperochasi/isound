@@ -179,7 +179,15 @@ public class Main {
     }
 
     private void searchMusicFromAlbum() {
-
+        System.out.println("Digite o album que deseja buscar");
+        var albumSearch = scanner.nextLine();
+        var album = albumRepository.findByTitleContainingIgnoreCase(albumSearch);
+        album.ifPresent(a -> {
+            System.out.println("Album: " + a.getTitle());
+            a.getMusic().forEach(m -> {
+                System.out.println("Musica: " + m.getTitle());
+            });
+        });
     }
 
     private void queryArtisticIA() {
