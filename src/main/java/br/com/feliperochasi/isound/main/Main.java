@@ -9,7 +9,6 @@ import br.com.feliperochasi.isound.repository.MusicRepository;
 
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -99,7 +98,7 @@ public class Main {
     private void createNewArtistic() {
         leave = 0;
         while (leave == 0) {
-            showMessageRegister("Cadastro de um novo artista");
+            showTitleMessage("Cadastro de um novo artista");
             System.out.println("Nome do artista:");
             var name = scanner.nextLine();
             System.out.println("Tipo de artista:");
@@ -115,7 +114,7 @@ public class Main {
     private void createNewMusic() {
         leave = 0;
         while (leave == 0) {
-            showMessageRegister("Cadastro de uma nova musica");
+            showTitleMessage("Cadastro de uma nova musica");
             var artistic = getArtisticFromDatabase();
             System.out.println("Para qual album deseja cadastrar essa musica?");
             var artisticAlbums = artistic.getAlbum();
@@ -145,7 +144,7 @@ public class Main {
     private void createNewAlbum() {
         leave = 0;
         while (leave == 0) {
-            showMessageRegister("Cadastro de um novo album");
+            showTitleMessage("Cadastro de um novo album");
             var artistic = getArtisticFromDatabase();
             System.out.println("Digite o titulo do album:");
             var title = scanner.nextLine();
@@ -158,7 +157,7 @@ public class Main {
     }
 
     private void listAllMusics() {
-        showMessageRegister("Lista musicas disponiveis");
+        showTitleMessage("Lista musicas disponiveis");
         var musics = musicRepository.findAll();
         musics.forEach(m -> {
             System.out.printf("Musica: %s - Duracao %s - Album %s - Artista %s\n",
@@ -169,7 +168,14 @@ public class Main {
     }
 
     private void searchMusicFromArtistic() {
-
+        showTitleMessage("Lista musicas por artista");
+        var artistic = getArtisticFromDatabase();
+        artistic.getAlbum().forEach(a -> {
+            System.out.println("\nMusicas do album: " + a.getTitle());
+            a.getMusic().forEach(m -> {
+                System.out.println("Musica: " + m.getTitle() + " Duracao: " + m.getDuration());
+            });
+        });
     }
 
     private void searchMusicFromAlbum() {
@@ -187,7 +193,7 @@ public class Main {
         scanner.nextLine();
     }
 
-    private void showMessageRegister(String message) {
+    private void showTitleMessage(String message) {
         System.out.println("***************** " + message + " *****************");
     }
 
