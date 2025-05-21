@@ -3,6 +3,7 @@ package br.com.feliperochasi.isound.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ManyToAny;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,7 @@ public class Album {
     private Long id;
     @Column(unique = true)
     private String title;
+    private LocalDate releasedDate;
     @ManyToOne
     private Artistic artistic;
 
@@ -21,10 +23,10 @@ public class Album {
 
     public Album() {}
 
-    public Album(String title, Artistic artistic, List<Music> music) {
+    public Album(String title, Artistic artistic, String releasedDate) {
         this.title = title;
         this.artistic = artistic;
-        this.music = music;
+        this.releasedDate = LocalDate.parse(releasedDate);
     }
 
     public Long getId() {
@@ -41,6 +43,14 @@ public class Album {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public LocalDate getReleasedDate() {
+        return releasedDate;
+    }
+
+    public void setReleasedDate(LocalDate releasedDate) {
+        this.releasedDate = releasedDate;
     }
 
     public Artistic getArtistic() {
@@ -64,6 +74,7 @@ public class Album {
         return "Album{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", releasedDate=" + releasedDate +
                 ", artistic=" + artistic +
                 ", music=" + music +
                 '}';

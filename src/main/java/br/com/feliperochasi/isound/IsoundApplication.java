@@ -1,6 +1,7 @@
 package br.com.feliperochasi.isound;
 
 import br.com.feliperochasi.isound.main.Main;
+import br.com.feliperochasi.isound.repository.AlbumRepository;
 import br.com.feliperochasi.isound.repository.ArtisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class IsoundApplication implements CommandLineRunner {
 	@Autowired
 	private ArtisticRepository artisticRepository;
+	@Autowired
+	private AlbumRepository albumRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(IsoundApplication.class, args);
@@ -18,7 +21,7 @@ public class IsoundApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		var initMain = new Main(artisticRepository);
+		var initMain = new Main(artisticRepository, albumRepository);
 		initMain.initIsound();
 	}
 }
