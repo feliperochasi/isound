@@ -88,7 +88,6 @@ public class Artistic {
                 ", name='" + name + '\'' +
                 ", typeArtistic=" + typeArtistic +
                 ", releasedDate=" + releasedDate +
-                ", musics=" + musics +
                 ", album=" + album +
                 '}';
     }

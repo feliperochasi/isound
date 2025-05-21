@@ -158,6 +158,13 @@ public class Main {
     }
 
     private void listAllMusics() {
+        showMessageRegister("Lista musicas disponiveis");
+        var musics = musicRepository.findAll();
+        musics.forEach(m -> {
+            System.out.printf("Musica: %s - Duracao %s - Album %s - Artista %s\n",
+                    m.getTitle(),  m.getDuration(), m.getAlbum().getTitle(),
+                    m.getArtistic().getName());
+        });
 
     }
 

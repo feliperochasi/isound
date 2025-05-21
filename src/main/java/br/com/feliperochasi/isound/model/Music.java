@@ -84,8 +84,6 @@ public class Music {
                 ", title='" + title + '\'' +
                 ", duration=" + duration +
                 ", releasedDate=" + releasedDate +
-                ", album=" + album +
-                ", artistic=" + artistic +
                 '}';
     }
 }
