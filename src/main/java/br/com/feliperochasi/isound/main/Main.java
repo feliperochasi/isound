@@ -195,11 +195,19 @@ public class Main {
     private void queryArtisticIA() {
         showTitleMessage("Maiores informacoes sobre artista");
         var artistic = getArtisticFromDatabase();
-        var text = OpenAI.getResultAI(artistic.getName());
+        var text = OpenAI.getResultAI(artistic.getName(), "artistic");
         System.out.println(text);
     }
 
     private void queryMusicIA() {
+        showTitleMessage("Maiores informacoes sobre uma musica");
+        System.out.println("Digite o titulo da musica");
+        var titleMusic = scanner.nextLine();
+        Optional<Music> music = musicRepository.findByTitleContainingIgnoreCase(titleMusic);
+        music.ifPresent(m -> {
+            var text = OpenAI.getResultAI(m.getTitle(), "music");
+            System.out.println(text);
+        });
     }
 
     private void clearLine() {
