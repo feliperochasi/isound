@@ -6,6 +6,7 @@ import br.com.feliperochasi.isound.model.Music;
 import br.com.feliperochasi.isound.repository.AlbumRepository;
 import br.com.feliperochasi.isound.repository.ArtisticRepository;
 import br.com.feliperochasi.isound.repository.MusicRepository;
+import br.com.feliperochasi.isound.service.OpenAI;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -192,7 +193,10 @@ public class Main {
     }
 
     private void queryArtisticIA() {
-
+        showTitleMessage("Maiores informacoes sobre artista");
+        var artistic = getArtisticFromDatabase();
+        var text = OpenAI.getResultAI(artistic.getName());
+        System.out.println(text);
     }
 
     private void queryMusicIA() {
